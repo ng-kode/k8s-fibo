@@ -12,7 +12,8 @@ cache:
 
 before_install:
   # install gcloud cli and kubectl
-  - curl https://sdk.cloud.google.com | bash
+  - curl https://sdk.cloud.google.com > install.sh
+  - bash install.sh --disable-prompts
   - source $HOME/google-cloud-sdk/path.bash.inc
   - gcloud components update kubectl
   # gcloud login
