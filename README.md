@@ -19,10 +19,10 @@ Go to GCP IAM, create a service account for Travis CI
 - on local machine, encrypt it, then use Travis CI cli to link this file to the repository
     - $ docker run -it -v $(pwd):/app ruby:2.4 sh
     - \# gem install travis
-    - \# travis login
-    - \# travis encrypt-file <the-key-filename>.json -r ng-kode/k8s-fibo
+    - \# travis login --github-token <the-token> --com
+    - \# travis encrypt-file <the-key-filename>.json -r <github-user>/<repo>  --com
 - Copy-paste the **encrypted** file (<the-key-filename>.json.enc) to the project root
-- Add the decrypt json file command to travis.yml, for example `openssl aes-256-cbc -K $encrypted_d5468fb2d2b8_key -iv $encrypted_d5468fb2d2b8_iv -in k8s-fibo-298602-554d7dba65d1.json.enc -out k8s-fibo-298602-554d7dba65d1.json -d`
+- Add the decrypt json file command to travis.yml, for example `openssl aes-256-cbc -K $encrypted_9f3b5599b056_key -iv $encrypted_9f3b5599b056_iv -in service-account.json.enc -out service-account.json -d`
 
 Go to Travis CI, find the repository, go to settings, add the following environment variables:
 DOCKER_USERNAME, DOCKER_PASSWORD

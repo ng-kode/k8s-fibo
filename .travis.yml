@@ -14,7 +14,7 @@ before_install:
   - source $HOME/google-cloud-sdk/path.bash.inc
   - gcloud components update kubectl
   # gcloud login
-  - openssl aes-256-cbc -K $encrypted_d5468fb2d2b8_key -iv $encrypted_d5468fb2d2b8_iv -in k8s-fibo-298602-554d7dba65d1.json.enc -out service-account.json -d
+  - openssl aes-256-cbc -K $encrypted_9f3b5599b056_key -iv $encrypted_9f3b5599b056_iv -in service-account.json.enc -out service-account.json -d
   - gcloud auth activate-service-account --key-file service-account.json
   # point gcloud to the project id and zone
   - gcloud config set project k8s-fibo-298602
