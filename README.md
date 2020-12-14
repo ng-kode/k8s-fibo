@@ -15,6 +15,7 @@ $ kubectl create secret generic pgpassword --from-literal PGPASSWORD=<the-passwo
 Go to GCP, GKE, enable billing, create a cluster
 
 Go to GCP IAM, create a service account for Travis CI
+- assign role "Kubernetes Engine Admin" to this service account
 - download the json file for key
 - on local machine, encrypt it, then use Travis CI cli to link this file to the repository
     - $ docker run -it -v $(pwd):/app ruby:2.4 sh
