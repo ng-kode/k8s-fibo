@@ -5,6 +5,8 @@ import OtherPage from './OtherPage';
 function App() {
   return (
     <Router>
+      <h1>Welcome</h1>
+
       <nav>
         <Link to="/">Home</Link>
         <Link to="/other-page">Other Page</Link>
