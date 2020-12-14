@@ -6,6 +6,7 @@ function App() {
   return (
     <Router>
       <h1>Welcome</h1>
+      <h2>k8s-fibo</h2>
 
       <nav>
         <Link to="/">Home</Link>
