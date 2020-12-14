@@ -1,0 +1,34 @@
+services:
+  - docker
+
+env:
+  global:
+    - SHA=$(git rev-parse HEAD)
+    - CLOUDSDK_CODE_DISABLE_PROMPTS=1
+
+before_install:
+  # install gcloud cli and kubectl
+  - curl https://sdk.cloud.google.com | bash > /dev/null
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components update kubectl
+  # gcloud login
+  - openssl aes-256-cbc -K $encrypted_d5468fb2d2b8_key -iv $encrypted_d5468fb2d2b8_iv -in k8s-fibo-298602-554d7dba65d1.json.enc -out service-account.json -d
+  - gcloud auth activate-service-account --key-file service-account.json
+  # point gcloud to the project id and zone
+  - gcloud config set project k8s-fibo-298602
+  - gcloud config set compute/zone asia-east2-a
+  # point gcloud to the specific cluster
+  - gcloud container clusters get-credentials k8s-fibo
+  # docker login
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  # build docker image(s) for testing
+  - docker build -t richardngcccc/docker-fibo_client -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true richardngcccc/docker-fibo_client npm run test -- --coverage
+
+deploy:
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    branch: main
