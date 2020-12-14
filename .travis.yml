@@ -8,7 +8,6 @@ env:
 
 before_install:
   # install gcloud cli and kubectl
-  - rm -rf /home/travis/google-cloud-sdk
   - curl https://sdk.cloud.google.com > install.sh
   - bash install.sh --disable-prompts
   - source $HOME/google-cloud-sdk/path.bash.inc
